@@ -1,10 +1,35 @@
 <template>
   <div>
+    <div class="header">
+      <div class="leftbox">
+        <span class="tensyoku">転職</span>
+        <span class="kaigi">会議</span>
+        <span class="business">BUSINESS</span>
+        <span class="hackdays">for Hack Days</span>
+      </div>
+      <div class="rightbox">
+        <div class="user">
+          <div class="profile-image">
+            <img src="~/assets/images/yamashita.jpg" />
+          </div>
+          <div class="name">
+            yusuke yamashita
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <ul>
+        <li>応募者一覧</li>
+        <li>友人表作成</li>
+      </ul>
+    </div>
     <nuxt/>
   </div>
 </template>
 
-<style>
+<style lang="scss">
+@import '../assets/css/common';
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -17,6 +42,19 @@ html {
   box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+  background: $bgColor;
+  color: $fontMainColor;
+}
+
+input[type="text"], 
+input[type="password"], 
+textarea, 
+select {
+    outline: none;
+}
+
 *,
 *:before,
 *:after {
@@ -24,32 +62,98 @@ html {
   margin: 0;
 }
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
+.header {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  padding: 16px;
+  background: $headerColor;
+  border-bottom: 1px solid #222;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .leftbox {
+    color: $fontGrayColor;
+    font-size: 0;
+    .tensyoku {
+      font-size: $sizeMd;
+      font-weight: bold;
+    }
+    .kaigi {
+      font-size: $sizeMd;
+      font-weight: normal;
+    }
+    .business {
+      font-size: $sizeMd;
+      color: $mainColor;
+      margin-right: 8px;
+    }
+    .hackdays {
+      font-size: $sizeMd;
+    }
+  }
+  .rightbox {
+    color: $fontGrayColor;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .buttons {
+      .button {
+        font-size: $sizeMd;
+      }
+    }
+    .user {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .profile-image {
+        $size: 24px;
+        width: $size;
+        height: $size;
+        margin-right: 12px;
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+      .name {
+        font-size: $sizeSm;
+      }
+    }
+  }
 }
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 180px;
+  height: 100vh;
+  background: $headerColor;
+  padding-top: 60px;
+  ul {
+    list-style: none;
+    padding: 0;
+    li {
+      cursor: pointer;
+      font-size: $sizeSm;
+      font-weight: bold;
+      padding: 16px;
+      color: $fontGrayColor;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      transition: 0.2s;
+      &:hover {
+        background: darken($headerColor, 10);
+      }
+    }
+  }
 }
 
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
 </style>

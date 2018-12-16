@@ -1,38 +1,26 @@
 <template>
   <section class="container">
-    <div>
-      <logo/>
-      <h1 class="title">
-        business-for-hack-days
-      </h1>
-      <h2 class="subtitle">
-        My legendary Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
-      </div>
-    </div>
+    <ul>
+      <li>
+        <i class="material-icons">description</i>
+        <div class="label">求人票</div>
+      </li>
+      <li>
+        <i class="material-icons">question_answer</i>
+        <div class="label">応募一覧</div>
+      </li>
+    </ul>
   </section>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
 
 export default {
-  components: {
-    Logo
-  }
 }
 </script>
 
-<style>
+<style lang="scss">
+@import '~assets/css/common';
 
 .container {
   min-height: 100vh;
@@ -40,27 +28,48 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
-}
+  ul {
+    font-size: 0;
+    list-style: none;
+    li {
+      display: inline-flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
+      vertical-align: middle;
+      width: 260px;
+      height: 320px;
+      background: white;
+      margin-right: 12px;
+      border-radius: 4px;
+      box-shadow: 0 3px 0 rgba(0,0,0,0.1), 0 4px 12px rgba(255,255,255,0.3) inset;
+      border: 1px solid #dfdfdf;
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+      transition: 0.2s;
+      .material-icons {
+        color: $mainColor;
+        font-size: 128px;
+        margin-bottom: 12px;
+      }
+      .label {
+        font-size: $sizeLg;
+        color: $mainColor;
+        font-weight: bold;
+      }
+      &:hover {
+        cursor: pointer;
+        background: $mainColor;
+        border: none;
+        box-shadow: 0 2px 0 #59ac0a, 0 2px 20px rgba(255,255,255,0.2) inset;
+        .material-icons {
+          color: white;
+        }
+        .label {
+          color: white;
+        }
+      }
+    }
+  }
 }
 </style>

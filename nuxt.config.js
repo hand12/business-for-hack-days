@@ -27,6 +27,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    '@/assets/css/common.scss'
   ],
 
   /*
@@ -40,7 +41,8 @@ module.exports = {
   */
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    'nuxt-material-design-icons'
   ],
   /*
   ** Axios module configuration
