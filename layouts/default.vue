@@ -28,7 +28,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '../assets/css/common';
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -136,6 +136,7 @@ select {
   left: 0;
   width: 180px;
   height: 100vh;
+  overflow: hidden;
   background: $headerColor;
   padding-top: 60px;
   ul {

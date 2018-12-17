@@ -69,7 +69,7 @@ export default {
     }
     thead {
       font-size: $sizeSm;
-      color: $fontDarkGrayCOlor;
+      color: $fontDarkGrayColor;
       border-bottom: 1px solid $borderColor;
       tr {
         text-align: left;
