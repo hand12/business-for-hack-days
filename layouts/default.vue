@@ -8,13 +8,21 @@
         <span class="hackdays">for Hack Days</span>
       </div>
       <div class="rightbox">
-        <div class="user">
+        <div
+          v-if="isSignedIn"
+          class="user">
           <div class="profile-image">
-            <img src="~/assets/images/yamashita.jpg" />
+            <img :src="currentUser.profileImage" />
           </div>
           <div class="name">
-            yusuke yamashita
+            {{ currentUser.name }}
           </div>
+        </div>
+        <div
+          v-else
+          class="login-button"
+          @click="googleLogin">
+          googleでログイン
         </div>
       </div>
     </div>
@@ -27,6 +35,34 @@
     <nuxt/>
   </div>
 </template>
+
+<script>
+import { mapMutations, mapActions, mapGetters } from 'vuex'
+
+export default {
+  methods: {
+    googleLogin() {
+      this.signIn()
+    },
+    ...mapActions('user', ['watchSignedInState', 'signIn'])
+  },
+  computed: {
+    ...mapGetters('user', ['isSignedIn', 'currentUser', 'loading'])
+  },
+  mounted() {
+    this.watchSignedInState()
+  },
+  watch: {
+    loading(val) {
+      if (val) {
+        this.$nuxt.$loading.start()
+      } else {
+        this.$nuxt.$loading.finish()
+      }
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 @import '../assets/css/common';
@@ -125,6 +161,16 @@ select {
       }
       .name {
         font-size: $sizeSm;
+      }
+    }
+    .login-button {
+      color: white;
+      font-size: $sizeSm;
+      padding: 4px 16px;
+      cursor: pointer;
+      transition: 0.2s;
+      &:hover {
+        color: $mainColor;
       }
     }
   }
