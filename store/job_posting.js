@@ -14,7 +14,8 @@ export const getters = {
 export const actions = {
   bindJobPosting({ commit }) {
     jobPostingsRef.on('value', snapshot => {
-      const jobPostings = Object.values(snapshot.val()).map(value => value)
+      const values = snapshot.val()
+      const jobPostings = Object.keys(values).map(id => Object.assign(values[id], { id: id }))
       commit('setJobPosting', jobPostings)
     })
   },

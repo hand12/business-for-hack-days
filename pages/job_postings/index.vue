@@ -5,26 +5,17 @@
       <table>
         <thead>
           <tr>
-            <th>求人ID</th>
             <th>求人タイトル</th>
-            <th>作成日</th>
+            <th>作成者</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>リブセンス新卒エンジニア大募集</td>
-            <td>2018 12/16 12:48</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>リブセンス新卒エンジニア大募集</td>
-            <td>2018 12/16 12:48</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>リブセンス新卒エンジニア大募集</td>
-            <td>2018 12/16 12:48</td>
+          <tr
+            v-for="jobPosting in jobPostings"
+            :key="jobPosting.id"
+            @click="segueToDetail(jobPosting.id)">
+            <td>{{ jobPosting.name }}</td>
+            <td>{{ jobPosting.postUser.name }}</td>
           </tr>
         </tbody>
       </table>
@@ -44,6 +35,9 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   methods: {
+    segueToDetail(id) {
+      this.$router.push({ name: 'job_postings-id', params: { id: id } })
+    },
     ...mapActions('job_posting', ['bindJobPosting'])
   },
   computed: {

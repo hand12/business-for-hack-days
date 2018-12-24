@@ -30,8 +30,16 @@
     </div>
     <div class="sidebar">
       <ul>
-        <li>応募者一覧</li>
-        <li>友人表作成</li>
+        <li>
+          <nuxt-link to="/job_postings">
+            応募者一覧
+          </nuxt-link>
+        </li>
+        <li>
+          <nuxt-link to="/job_postings">
+            求人票一覧
+          </nuxt-link>
+        </li>
       </ul>
     </div>
     <nuxt/>
@@ -198,11 +206,14 @@ select {
       font-size: $sizeSm;
       font-weight: bold;
       padding: 16px;
-      color: $fontGrayColor;
       border-bottom: 1px solid rgba(255,255,255,0.07);
       transition: 0.2s;
       &:hover {
         background: darken($headerColor, 10);
+      }
+      a {
+        color: $fontGrayColor;
+        text-decoration: none;
       }
     }
   }

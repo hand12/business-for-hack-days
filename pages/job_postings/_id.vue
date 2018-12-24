@@ -5,25 +5,25 @@
       <div class="name block">
         <div class="label">求人票タイトル</div>
         <div class="value">
-          エンジニアリングもデザインもやりたい！新規事業の立ち上げに関わるWebディレクターを大募集
+          {{ jobPosting.name }}
         </div>
       </div>
       <div class="image block">
         <div class="label">メイン画像</div>
         <div class="imagebox">
-          <img src="~/assets/images/livesense.jpg" />
+          <img :src="jobPosting.imageUrl" />
         </div>
       </div>
       <div class="pr block">
         <div class="label">PR文言</div>
-        <p v-html="prText"></p>
+        <p v-html="jobPosting.pr"></p>
       </div>
       <div class="salary block">
         <div class="label">給与レンジ</div>
         <div class="salary-range">
-          <span class="salary-bottom">400</span>
+          <span class="salary-bottom">{{ jobPosting.salary.min }}</span>
           <span class="unit">万円 ~ </span>
-          <span class="salary-top">600</span>
+          <span class="salary-top">{{ jobPosting.salary.max }}</span>
           <span class="unit">万円</span>
         </div>
       </div>
@@ -37,12 +37,21 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
-  data() {
-    return {
-      prText: "国内最大級の転職クチコミサイト「転職会議」。 月間2650万PV、会員数も200万会員を超える転職会議では、 【世界から無駄な転職を撲滅する】ことをVISIONに掲げています。 そんなVISIONに共感していただけるエンジニアの方、是非一緒に転職会議を作っていきましょう！"
-    }
-  }
+  computed: {
+    jobPosting() {
+      return this.jobPostings.find(jobPosting => jobPosting.id === this.$route.params.id)
+    },
+    ...mapGetters('job_posting', ['jobPostings'])
+  },
+  methods: {
+    ...mapActions('job_posting', ['bindJobPosting'])
+  },
+  created() {
+    this.bindJobPosting();
+  },
 }
 </script>
 
