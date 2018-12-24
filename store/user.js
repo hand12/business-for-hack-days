@@ -24,7 +24,8 @@ export const actions = {
       if (response) {
         const user = {
           name: response.displayName,
-          profileImage: response.photoURL
+          profileImage: response.photoURL,
+          uid: response.uid
         }
         commit('setCurrentUser', user)
         commit('setSignInState', true)
