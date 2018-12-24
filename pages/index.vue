@@ -2,8 +2,10 @@
   <section class="container">
     <ul>
       <li>
-        <i class="material-icons">description</i>
-        <div class="label">求人票</div>
+        <nuxt-link to="job_postings">
+          <i class="material-icons">description</i>
+          <div class="label">求人票</div>
+        </nuxt-link>
       </li>
       <li>
         <i class="material-icons">question_answer</i>
@@ -18,7 +20,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '~assets/css/common';
 
 .container {
@@ -54,6 +56,9 @@ export default {
         font-size: $sizeLg;
         color: $mainColor;
         font-weight: bold;
+      }
+      a {
+        text-decoration: none;
       }
       &:hover {
         cursor: pointer;

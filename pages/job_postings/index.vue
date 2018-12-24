@@ -31,19 +31,31 @@
     </div>
     <div class="buttons">
       <div class="button">
-        求人票を新規作成
+        <nuxt-link to="job_postings/new">
+          求人票を新規作成
+        </nuxt-link>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-export default {
+import { mapGetters, mapActions } from 'vuex'
 
+export default {
+  methods: {
+    ...mapActions('job_posting', ['bindJobPosting'])
+  },
+  computed: {
+    ...mapGetters('job_posting', ['jobPostings'])
+  },
+  created() {
+    this.bindJobPosting();
+  },
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '~assets/css/common';
 
 .container {
@@ -117,8 +129,14 @@ export default {
       border-radius: 4px;
       border-bottom: 2px solid $buttonShadow;
       transition: 0.2s;
+      a {
+        color: $fontMainColor;
+        text-decoration: none;
+        &:hover {
+          color: white;
+        }
+      }
       &:hover {
-        color: white;
         background: $mainColor;
         border: 1px solid $mainColor;
         border-bottom: 2px solid darken($mainColor, 10);

@@ -2,10 +2,12 @@
   <div>
     <div class="header">
       <div class="leftbox">
-        <span class="tensyoku">転職</span>
-        <span class="kaigi">会議</span>
-        <span class="business">BUSINESS</span>
-        <span class="hackdays">for Hack Days</span>
+        <nuxt-link to="/">
+          <span class="tensyoku">転職</span>
+          <span class="kaigi">会議</span>
+          <span class="business">BUSINESS</span>
+          <span class="hackdays">for Hack Days</span>
+        </nuxt-link>
       </div>
       <div class="rightbox">
         <div
@@ -64,7 +66,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../assets/css/common';
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -114,23 +116,26 @@ select {
   justify-content: space-between;
   align-items: center;
   .leftbox {
-    color: $fontGrayColor;
     font-size: 0;
-    .tensyoku {
-      font-size: $sizeMd;
-      font-weight: bold;
-    }
-    .kaigi {
-      font-size: $sizeMd;
-      font-weight: normal;
-    }
-    .business {
-      font-size: $sizeMd;
-      color: $mainColor;
-      margin-right: 8px;
-    }
-    .hackdays {
-      font-size: $sizeMd;
+    a {
+      color: $fontGrayColor;
+      text-decoration: none;
+      .tensyoku {
+        font-size: $sizeMd;
+        font-weight: bold;
+      }
+      .kaigi {
+        font-size: $sizeMd;
+        font-weight: normal;
+      }
+      .business {
+        font-size: $sizeMd;
+        color: $mainColor;
+        margin-right: 8px;
+      }
+      .hackdays {
+        font-size: $sizeMd;
+      }
     }
   }
   .rightbox {
