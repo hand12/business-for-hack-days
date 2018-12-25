@@ -18,6 +18,9 @@
         :key="message.id">
         <message-left />
       </div>
+      <div id="scrollMark"></div>
+
+
       <!-- <message-right />
       <message-left />
       <message-right />
@@ -81,6 +84,13 @@ export default {
   created() {
     this.bindApplication()
     this.bindMessage()
+  },
+  watch: {
+    messages() {
+      this.$scrollTo('#scrollMark', 700, {
+        container: '.messages'
+      });
+    }
   }
 }
 </script>
@@ -146,7 +156,7 @@ export default {
   .messages {
     padding: 24px;
     padding-top: 156px;
-    padding-bottom: 168px;
+    padding-bottom: 240px;
     height: 100%;
     overflow-y: scroll;
   }
