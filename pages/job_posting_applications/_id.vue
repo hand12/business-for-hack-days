@@ -3,38 +3,84 @@
     <div class="user-fix-container">
       <div class="user-info">
         <div class="user-profile-image">
-          <img src="~/assets/images/sampleWoman.jpg" />
+          <img :src="application().user.profileImage" />
         </div>
         <div class="user-profile-info">
           <div class="from">東京都在住 | 転職会議大学</div>
-          <div class="name">Eri Tanaka</div>
+          <div class="name">{{ application().user.name }}</div>
           <div class="company">転職会議 株式会社</div>
         </div>
       </div>
     </div>
     <div class="messages">
-      <message-right />
+      <div
+        v-for="message in applicationsMessages()"
+        :key="message.id">
+        <message-left />
+      </div>
+      <!-- <message-right />
       <message-left />
       <message-right />
       <message-left />
       <message-right />
-      <message-left />
+      <message-left /> -->
     </div>
     <div class="form-fix-container">
-      <textarea rows="5" />
-      <span class="submit-button">送信する</span>
+      <textarea rows="4" v-model="body" />
+      <span
+        @click="submit"
+        class="submit-button">送信する</span>
     </div>
   </section>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import MessageRight from '~/components/MessageRight';
 import MessageLeft from '~/components/MessageLeft';
 
 export default {
+  data() {
+    return {
+      body: null
+    }
+  },
   components: {
     MessageRight,
     MessageLeft,
+  },
+  computed: {
+    ...mapGetters('application', ['applications']),
+    ...mapGetters('user', ['currentUser']),
+    ...mapGetters('message', ['messages']),
+  },
+  methods: {
+    application() {
+      return this.applications.find(application => application.id === this.$route.params.id)
+    },
+    applicationsMessages() {
+      return this.messages.filter(message => message.application.id === this.application().id)
+    },
+    async submit() {
+      if (this.body.trim().length <= 0) return
+      this.$nuxt.$loading.start()
+
+      const message = {
+        application: { ...this.application() },
+        body: this.body,
+        user: { ...this.currentUser },
+        isRead: false,
+      }
+      await this.addMessage(message)
+      this.$nuxt.$loading.finish()
+      this.body = null
+    },
+    ...mapActions('application', ['bindApplication', 'addApplication']),
+    ...mapActions('message', ['bindMessage', 'addMessage']),
+  },
+  created() {
+    this.bindApplication()
+    this.bindMessage()
   }
 }
 </script>
@@ -44,12 +90,17 @@ export default {
 
 .container {
   min-height: 100vh;
-  padding-top: 50px;
-  padding-left: 170px;
-  height: 100vh;
+  padding-top: 16px;
+  padding-left: 180px;
+  height: calc(100vh);
   overflow-y: scroll;
   background: $grayBgColor;
   .user-fix-container {
+    z-index: 1;
+    position: fixed;
+    top: 57px;
+    left: 180px;
+    right: 0;
     background: white;
     @include box-shadow();
     .user-info {
@@ -94,21 +145,24 @@ export default {
   }
   .messages {
     padding: 24px;
-    padding-bottom: 120px;
+    padding-top: 156px;
+    padding-bottom: 168px;
+    height: 100%;
+    overflow-y: scroll;
   }
   .form-fix-container {
-    position: absolute;
+    position: fixed;
     bottom: -12px;
     left: 180px;
     right: 0;
-    background: white;
+    background: rgba(45,55,64,0.75);
     padding: 32px;
     box-sizing: border-box;
     border-top: 1px solid $grayBorderColor;
     
     display: flex;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
     textarea {
       color: $fontMainColor;
       outline: none;
@@ -127,6 +181,7 @@ export default {
       padding: 8px 16px;
       color: white;
       border-radius: 2.5px;
+      @include box-shadow();
     }
   }
 }

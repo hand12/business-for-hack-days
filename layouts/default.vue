@@ -31,7 +31,7 @@
     <div class="sidebar">
       <ul>
         <li>
-          <nuxt-link to="/job_postings">
+          <nuxt-link to="/job_posting_applications">
             応募者一覧
           </nuxt-link>
         </li>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { mapMutations, mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   methods: {
@@ -110,7 +110,7 @@ select {
 
 .header {
   z-index: 10;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -190,11 +190,11 @@ select {
 }
 
 .sidebar {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
+  bottom: 0;
   width: 180px;
-  height: 100vh;
   overflow: hidden;
   background: $headerColor;
   padding-top: 60px;

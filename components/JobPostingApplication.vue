@@ -1,16 +1,18 @@
 <template>
-  <div class="job-posting-application">
+  <div
+    @click="segueToDetail"
+    class="job-posting-application">
     <div class="read-icons">
       <span class="read-icon">対応済み</span>
       <span class="not-compatible">未読あり・既読</span>
     </div>
-    <div class="header">
+    <div class="applocation-header">
       <div class="user-profile-image">
-        <img src="~/assets/images/sampleWoman.jpg" />
+        <img :src="application.user.profileImage" />
       </div>
       <div class="user-profile-info">
         <div class="from">東京都在住 | 転職会議大学</div>
-        <div class="name">Eri Tanaka</div>
+        <div class="name">{{ application.user.name }}</div>
         <div class="company">転職会議 株式会社</div>
       </div>
     </div>
@@ -28,7 +30,7 @@
           <a>こちらから返信</a>
         </div>
         <div class="right">
-          <span class="assineer">担当: 山下悠介</span>
+          <span class="assineer">担当: {{ application.jobPosting.postUser.name }}</span>
         </div>
       </div>
     </div>
@@ -36,6 +38,12 @@
 </template>
 <script>
 export default {
+  props: ['application'],
+  methods: {
+    segueToDetail() {
+      this.$router.push({ name: 'job_posting_applications-id', params: { id: this.application.id }})
+    }
+  },
   data() {
     return {
       message: `株式会社リブセンスは、こんな会社です。+:｡.｡:+*゜★*+:｡.｡:+*゜★*
@@ -76,7 +84,7 @@ export default {
       border: 1px solid $grayBorderColor;
     }
   }
-  .header {
+  .applocation-header {
     padding: 16px;
     display: flex;
     justify-content: flex-start;

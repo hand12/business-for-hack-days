@@ -2,23 +2,31 @@
   <section class="container">
     <h1 class="title">応募者一覧</h1>
     <div class="job-posting-applications">
-      <job-posting-application />
-      <job-posting-application />
-      <job-posting-application />
-      <job-posting-application />
-      <job-posting-application />
-      <job-posting-application />
+      <job-posting-application
+        v-for="application in applications"
+        :key="application.id"
+        :application="application" />
     </div>
   </section>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import JobPostingApplication from '~/components/JobPostingApplication';
 
 export default {
   components: {
     JobPostingApplication,
   },
+  methods: {
+    ...mapActions('application', ['bindApplication']),
+  },
+  computed: {
+    ...mapGetters('application', ['applications']),
+  },
+  created() {
+    this.bindApplication()
+  }
 }
 </script>
 
