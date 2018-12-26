@@ -3,8 +3,12 @@
     @click="segueToDetail"
     class="job-posting-application">
     <div class="read-icons">
-      <span class="read-icon">対応済み</span>
-      <span class="not-compatible">未読あり・既読</span>
+      <span
+        v-if="applicationsMessages.filter(message => !message.isRead).length >= 1"
+        class="not-compatible">未読あり・既読</span>
+      <span
+        v-else
+        class="read-icon">対応済み</span>
     </div>
     <div class="applocation-header">
       <div class="user-profile-image">
@@ -13,7 +17,7 @@
       <div class="user-profile-info">
         <div class="from">東京都在住 | 転職会議大学</div>
         <div class="name">{{ application.user.name }}</div>
-        <div class="company">転職会議 株式会社</div>
+        <div class="job-posting">{{ application.jobPosting.name }}</div>
       </div>
     </div>
     <div class="body">
@@ -22,7 +26,7 @@
       </div>
       <div
         class="message"
-        v-html="message">
+        v-html="applicationText">
       </div>
       <div class="bottom">
         <div class="left">
@@ -38,10 +42,25 @@
 </template>
 <script>
 export default {
-  props: ['application'],
+  props: ['application', 'messages'],
   methods: {
     segueToDetail() {
       this.$router.push({ name: 'job_posting_applications-id', params: { id: this.application.id }})
+    }
+  },
+  computed: {
+    applicationsMessages() {
+      return this.messages.filter(message => message.application.id === this.application.id)
+    },
+    newestMessage() {
+      return this.applicationsMessages[this.applicationsMessages.length -1]
+    },
+    applicationText() {
+      if (this.applicationsMessages.length >= 1) {
+        return this.newestMessage.body
+      } else {
+        return `${this.application.user.name}さんから応募が来ました！`
+      }
     }
   },
   data() {
@@ -51,6 +70,9 @@ export default {
               ★毎週土日・祝日休み
               ★9時～18時！残業少なめ`
     }
+  },
+  created() {
+    console.log(this.application)
   }
 }
 </script>
@@ -116,8 +138,8 @@ export default {
         margin-bottom: 12px;
         border-bottom: 1px solid $grayBorderColor;
       }
-      .company {
-        color: $fontDarkGrayColor;
+      .job-posting {
+        color: $fontTableHoverColor;
         font-size: $sizeSm;
         font-weight: bold;
       }

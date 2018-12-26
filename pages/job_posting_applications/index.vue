@@ -5,7 +5,8 @@
       <job-posting-application
         v-for="application in applications"
         :key="application.id"
-        :application="application" />
+        :application="application"
+        :messages="messages" />
     </div>
   </section>
 </template>
@@ -20,12 +21,15 @@ export default {
   },
   methods: {
     ...mapActions('application', ['bindApplication']),
+    ...mapActions('message', ['bindMessage']),
   },
   computed: {
     ...mapGetters('application', ['applications']),
+    ...mapGetters('message', ['messages']),
   },
   created() {
     this.bindApplication()
+    this.bindMessage()
   }
 }
 </script>
