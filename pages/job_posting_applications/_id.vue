@@ -14,19 +14,17 @@
     </div>
     <div class="messages">
       <div
+        v-if="currentUser"
         v-for="message in applicationsMessages()"
         :key="message.id">
-        <message-left />
+        <message-left
+          v-if="message.user.uid === currentUser.uid"
+          :message="message" />
+        <message-right
+          v-else
+          :message="message" />
       </div>
       <div id="scrollMark"></div>
-
-
-      <!-- <message-right />
-      <message-left />
-      <message-right />
-      <message-left />
-      <message-right />
-      <message-left /> -->
     </div>
     <div class="form-fix-container">
       <textarea rows="4" v-model="body" />

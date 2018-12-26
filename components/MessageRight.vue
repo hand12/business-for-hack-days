@@ -1,21 +1,17 @@
 <template>
   <div class="message">
     <div class="balloon">
-      <div class="text">
-        テスト<br />
-        テスト<br />
-        テスト<br />
-        テスト<br />
-        テスト<br />
-        テスト<br />
-      </div>
+      <p
+        class="text"
+        v-html="message.body">
+      </p>
       <div class="bottom">
         <div class="job-posting">
           <div class="label">
             添付された求人
           </div>
           <div class="name">
-            エンジニアリングもデザインもやりたい！新規事業の立ち上げに関わりたいwebディレクター
+            {{ message.application.jobPosting.name }}
           </div>
         </div>
       </div>
@@ -26,16 +22,19 @@
     </div>
     <div class="user">
       <div class="profile-image">
-        <img src="~/assets/images/yamashita.jpg" />
+        <img :src="message.user.profileImage" />
       </div>
       <div class="name">
-        yusuke yamashita
+        {{ message.user.name }}
       </div>
     </div>
   </div>
 </template>
 
 <script>
+export default {
+  props: ['message']
+}
 
 </script>
 
@@ -74,6 +73,7 @@
       display: block;
     }
     .text {
+      white-space: pre-wrap;
       color: $fontMainColor;
       font-size: $sizeSm;
       padding-bottom: 24px;
@@ -129,6 +129,7 @@
       }
     }
     .name {
+      text-align: center;
       font-size: $sizeXs;
       color: $fontDarkGrayColor;
     }
