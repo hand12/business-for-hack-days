@@ -1,9 +1,11 @@
 <template>
   <section class="container">
     <h1 class="title">応募者一覧</h1>
-    <div class="job-posting-applications">
+    <div
+      v-if="currentUser"
+      class="job-posting-applications">
       <job-posting-application
-        v-for="application in applications"
+        v-for="application in currentUsersApplications"
         :key="application.id"
         :application="application"
         :messages="messages" />
@@ -24,8 +26,12 @@ export default {
     ...mapActions('message', ['bindMessage']),
   },
   computed: {
+    currentUsersApplications() {
+      return this.applications.filter(application => application.jobPosting.postUser.uid === this.currentUser.uid)
+    },
     ...mapGetters('application', ['applications']),
     ...mapGetters('message', ['messages']),
+    ...mapGetters('user', ['currentUser']),
   },
   created() {
     this.bindApplication()

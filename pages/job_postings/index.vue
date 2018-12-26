@@ -1,7 +1,9 @@
 <template>
   <section class="container">
     <h1 class="title">求人票一覧</h1>
-    <div class="job-postings">
+    <div
+      v-if="currentUser"
+      class="job-postings">
       <table>
         <thead>
           <tr>
@@ -11,7 +13,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="jobPosting in jobPostings"
+            v-for="jobPosting in currentUsersJobPosting"
             :key="jobPosting.id"
             @click="segueToDetail(jobPosting.id)">
             <td>{{ jobPosting.name }}</td>
@@ -38,10 +40,14 @@ export default {
     segueToDetail(id) {
       this.$router.push({ name: 'job_postings-id', params: { id: id } })
     },
-    ...mapActions('job_posting', ['bindJobPosting'])
+    ...mapActions('job_posting', ['bindJobPosting']),
   },
   computed: {
-    ...mapGetters('job_posting', ['jobPostings'])
+    currentUsersJobPosting() {
+      return this.jobPostings.filter(jobPosting => jobPosting.postUser.uid === this.currentUser.uid)
+    },
+    ...mapGetters('job_posting', ['jobPostings']),
+    ...mapGetters('user', ['currentUser']),
   },
   created() {
     this.bindJobPosting();

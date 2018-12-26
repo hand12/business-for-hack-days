@@ -4,7 +4,7 @@
     class="job-posting-application">
     <div class="read-icons">
       <span
-        v-if="applicationsMessages.filter(message => !message.isRead).length >= 1"
+        v-if="currentUser && havingNotReadMessage"
         class="not-compatible">未読あり・既読</span>
       <span
         v-else
@@ -41,6 +41,8 @@
   </div>
 </template>
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   props: ['application', 'messages'],
   methods: {
@@ -61,7 +63,14 @@ export default {
       } else {
         return `${this.application.user.name}さんから応募が来ました！`
       }
-    }
+    },
+    havingNotReadMessage() {
+      return this.applicationsMessages
+        .filter(message => message.user.uid !== this.currentUser.uid)
+        .filter(message => !message.isRead)
+        .length >= 1
+    },
+    ...mapGetters('user', ['currentUser'])
   },
   data() {
     return {
@@ -71,9 +80,6 @@ export default {
               ★9時～18時！残業少なめ`
     }
   },
-  created() {
-    console.log(this.application)
-  }
 }
 </script>
 
