@@ -84,7 +84,8 @@ export default {
     this.bindMessage()
   },
   watch: {
-    messages() {
+    messages(newVal, oldVal) {
+      if (newVal.length === oldVal.length) return
       this.$scrollTo('#scrollMark', 700, {
         container: '.messages'
       });

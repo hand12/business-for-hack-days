@@ -24,7 +24,11 @@
         </div>
       </div>
       <div class="bottom-buttons">
-        <div class="button">既読</div>
+        <div
+          v-if="message.isRead"
+          class="button">既読</div>
+        <div
+          v-else></div>
         <div class="posted-date">2018/12/26 12:42</div>
       </div>
     </div>

@@ -16,7 +16,6 @@
         </div>
       </div>
       <div class="bottom-buttons">
-        <div class="button">既読</div>
         <div class="posted-date">2018/12/26 12:42</div>
       </div>
     </div>
@@ -32,10 +31,17 @@
 </template>
 
 <script>
-export default {
-  props: ['message']
-}
+import { mapActions } from 'vuex'
 
+export default {
+  props: ['message'],
+  methods: {
+    ...mapActions('message', ['readMessage']),
+  },
+  created() {
+    this.readMessage(this.message)
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -95,12 +101,12 @@ export default {
     }
     .bottom-buttons {
       position: absolute;
-      bottom: -36px;
+      bottom: -24px;
       right: 0;
       left: 0;
 
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       .button {
         font-size: $sizeXs;
