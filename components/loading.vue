@@ -15,7 +15,7 @@ export default {
     start() {
       this.loading = true
     },
-    finish() {
+    finish() { 
       this.loading = false
     }
   },

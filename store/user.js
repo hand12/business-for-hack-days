@@ -18,6 +18,9 @@ export const actions = {
       new firebase.auth.GoogleAuthProvider()
     )
   },
+  signOut() {
+    firebase.auth().signOut()
+  },
   watchSignedInState({ commit }) {
     commit('setLoading', true)
     firebase.auth().onAuthStateChanged(response => {

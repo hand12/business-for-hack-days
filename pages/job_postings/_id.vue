@@ -40,6 +40,7 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  middleware: 'authenticated',
   computed: {
     jobPosting() {
       return this.jobPostings.find(jobPosting => jobPosting.id === this.$route.params.id)

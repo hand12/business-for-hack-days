@@ -23,11 +23,11 @@
       </table>
     </div>
     <div class="buttons">
-      <div class="button">
-        <nuxt-link to="job_postings/new">
-          求人票を新規作成
-        </nuxt-link>
-      </div>
+      <nuxt-link to="job_postings/new">
+        <div class="button">
+            求人票を新規作成
+        </div>
+      </nuxt-link>
     </div>
   </section>
 </template>
@@ -36,6 +36,7 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  middleware: 'authenticated',
   methods: {
     segueToDetail(id) {
       this.$router.push({ name: 'job_postings-id', params: { id: id } })
@@ -117,6 +118,13 @@ export default {
   }
   .buttons {
     text-align: center;
+    a {
+      color: $fontMainColor;
+      text-decoration: none;
+      &:hover {
+        color: white;
+      }
+    }
     .button {
       cursor: pointer;
       display: inline-block;
@@ -129,13 +137,6 @@ export default {
       border-radius: 4px;
       border-bottom: 2px solid $buttonShadow;
       transition: 0.2s;
-      a {
-        color: $fontMainColor;
-        text-decoration: none;
-        &:hover {
-          color: white;
-        }
-      }
       &:hover {
         background: $mainColor;
         border: 1px solid $mainColor;

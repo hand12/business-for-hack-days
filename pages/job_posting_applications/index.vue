@@ -18,6 +18,7 @@ import { mapGetters, mapActions } from 'vuex'
 import JobPostingApplication from '~/components/JobPostingApplication';
 
 export default {
+  middleware: 'authenticated',
   components: {
     JobPostingApplication,
   },

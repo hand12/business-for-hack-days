@@ -13,7 +13,7 @@
         class="text"
         v-html="message.body">
       </p>
-      <div class="bottom">
+      <!-- <div class="bottom">
         <div class="job-posting">
           <div class="label">
             添付された求人
@@ -22,7 +22,7 @@
             {{ message.application.jobPosting.name }}
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="bottom-buttons">
         <div
           v-if="message.isRead"
@@ -80,7 +80,7 @@ export default {
       color: $fontMainColor;
       font-size: $sizeSm;
       padding-bottom: 24px;
-      border-bottom: 1px solid $grayBorderColor;
+      // border-bottom: 1px solid $grayBorderColor;
     }
     .bottom {
       .job-posting {

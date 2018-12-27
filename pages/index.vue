@@ -1,22 +1,45 @@
 <template>
   <section class="container">
     <ul>
-      <li>
-        <nuxt-link to="job_postings">
+      <div v-if="isSignedIn">
+        <li @click="segueToJobPostings">
           <i class="material-icons">description</i>
           <div class="label">求人票</div>
-        </nuxt-link>
-      </li>
-      <li>
-        <i class="material-icons">question_answer</i>
-        <div class="label">応募一覧</div>
-      </li>
+        </li>
+        <li @click="segueToApplications">
+          <i class="material-icons">question_answer</i>
+          <div class="label">応募一覧</div>
+        </li>
+      </div>
+      <div v-else>
+        <li @click="googleLogin">
+          <i class="material-icons">person</i>
+          <div class="label">ログイン</div>
+        </li>
+      </div>
     </ul>
   </section>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
+  methods: {
+    segueToApplications() {
+      this.$router.push('/job_posting_applications')
+    },
+    segueToJobPostings() {
+      this.$router.push('/job_postings')
+    },
+    googleLogin() {
+      this.signIn()
+    },
+    ...mapActions('user', ['signIn'])
+  },
+  computed: {
+    ...mapGetters('user', ['isSignedIn', 'loading'])
+  },
 }
 </script>
 

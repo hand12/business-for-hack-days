@@ -4,7 +4,10 @@
     class="job-posting-application">
     <div class="read-icons">
       <span
-        v-if="currentUser && havingNotReadMessage"
+        v-if="currentUser && applicationsMessages.length <= 0"
+        class="new-icon">NEW</span>
+      <span
+        v-else-if="currentUser && havingNotReadMessage"
         class="not-compatible">未読あり・既読</span>
       <span
         v-else
@@ -110,6 +113,14 @@ export default {
       padding: 4px 8px;
       border-radius: 2.5px;
       border: 1px solid $grayBorderColor;
+    }
+    .new-icon {
+      font-weight: bold;
+      padding: 4px 8px;
+      color: white;
+      border-radius: 2.5px;
+      background: $mainColor;
+      margin-right: 8px;
     }
   }
   .applocation-header {

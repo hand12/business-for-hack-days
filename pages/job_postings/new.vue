@@ -90,6 +90,7 @@ export default {
       errors: []
     }
   },
+  middleware: 'authenticated',
   methods: {
     hasError(field) {
       return this.errors.map(error => error.field).includes(field)

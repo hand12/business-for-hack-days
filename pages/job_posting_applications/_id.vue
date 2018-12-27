@@ -1,5 +1,7 @@
 <template>
-  <section class="container">
+  <section
+    v-if="currentUser"
+    class="container">
     <div class="user-fix-container">
       <div class="user-info">
         <div class="user-profile-image">

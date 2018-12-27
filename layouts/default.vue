@@ -19,6 +19,11 @@
           <div class="name">
             {{ currentUser.name }}
           </div>
+          <div
+            @click="signOut"
+            class="logout-buton">
+            ログアウト
+          </div>
         </div>
         <div
           v-else
@@ -54,7 +59,10 @@ export default {
     googleLogin() {
       this.signIn()
     },
-    ...mapActions('user', ['watchSignedInState', 'signIn'])
+    signOut() {
+      this.signOut()
+    },
+    ...mapActions('user', ['watchSignedInState', 'signIn', 'signOut'])
   },
   computed: {
     ...mapGetters('user', ['isSignedIn', 'currentUser', 'loading'])
@@ -68,6 +76,11 @@ export default {
         this.$nuxt.$loading.start()
       } else {
         this.$nuxt.$loading.finish()
+      }
+    },
+    isSignedIn(val) {
+      if (!val) {
+        this.$router.push('/login')
       }
     }
   }
@@ -177,6 +190,16 @@ select {
       }
     }
     .login-button {
+      color: white;
+      font-size: $sizeSm;
+      padding: 4px 16px;
+      cursor: pointer;
+      transition: 0.2s;
+      &:hover {
+        color: $mainColor;
+      }
+    }
+    .logout-buton {
       color: white;
       font-size: $sizeSm;
       padding: 4px 16px;
