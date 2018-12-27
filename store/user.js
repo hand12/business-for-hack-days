@@ -18,8 +18,10 @@ export const actions = {
       new firebase.auth.GoogleAuthProvider()
     )
   },
-  signOut() {
+  signOut({ commit }) {
     firebase.auth().signOut()
+    commit('setCurrentUser', null)
+    commit('setSignInState', false)
   },
   watchSignedInState({ commit }) {
     commit('setLoading', true)

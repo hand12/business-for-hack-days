@@ -10,7 +10,7 @@ export default {
     this.$message({
       showClose: true,
       message: 'ログインが必要です',
-      type: 'success'
+      type: 'error'
     });
     this.$router.push("/")
   }
