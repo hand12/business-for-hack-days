@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "tk-for-hackdays"
+  },
+  "targets": {
+    "tk-for-hackdays": {
+      "hosting": {
+        "business": [
+          "business-for-hackdays"
+        ]
+      }
+    }
+  }
+}
